@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Break it all
-        run: cmdnotexist
+        run: exit 0
 
   job2:
     name: Job 2
@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Break it all2
-        run: cmdnotexist2
+        run: exit 0
 
   job3:
     if: always()
@@ -27,10 +27,10 @@ jobs:
     steps:
       - name: Maybe break this job
         run: exit 0
-      - name: Set overall status Success
+      - name: Set overall status Failure
         if: ${{ failure() || needs.job2.result != 'success' }}
         run: echo 'FAILURE'
-      - name: Set overall status Failure
+      - name: Set overall status Success
         if: ${{ success() && needs.job2.result == 'success' }}
         run: echo 'SUCCESS'
         
