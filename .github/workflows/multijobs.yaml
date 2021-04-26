@@ -28,10 +28,10 @@ jobs:
       - name: Maybe break this job
         run: exit 0
       - name: Set overall status Success
-        if: failure() || "${{ needs.job2.result }}" != 'success'
+        if: ${{ failure() || needs.job2.result" != 'success' }}
         run: echo 'FAILURE'
       - name: Set overall status Failure
-        if: success() && "${{ needs.job2.result }}" == 'success'
+        if: ${{ success() && needs.job2.result == 'success' }}
         run: echo 'SUCCESS'
         
 
