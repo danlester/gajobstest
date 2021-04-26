@@ -3,7 +3,7 @@ name: "Test Multiple Jobs"
 on:
   workflow_dispatch:
   
- jobs:
+jobs:
   job1:
     name: Job 1
     runs-on: ubuntu-latest
