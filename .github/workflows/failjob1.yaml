@@ -1,0 +1,36 @@
+name: "Test Multiple Jobs 1"
+
+on:
+  workflow_dispatch:
+  
+jobs:
+  job1:
+    name: Job 1
+    runs-on: ubuntu-latest
+    steps:
+      - name: Break it all
+        run: exit 1
+
+  job2:
+    name: Job 2
+    needs: job1
+    runs-on: ubuntu-latest
+    steps:
+      - name: Break it all2
+        run: exit 0
+
+  job3:
+    if: always()
+    name: Job 3
+    runs-on: ubuntu-latest
+    needs: job2
+    steps:
+      - name: Maybe break this job
+        run: exit 0
+      - name: Set overall status Failure
+        if: ${{ failure() || needs.job2.result != 'success' }}
+        run: echo 'FAILURE'
+      - name: Set overall status Success
+        if: ${{ success() && needs.job2.result == 'success' }}
+        run: echo 'SUCCESS'
+        
