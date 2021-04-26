@@ -10,14 +10,24 @@ jobs:
     steps:
       - name: Break it all
         run: cmdnotexist
-        
+
   job2:
-    if: always()
     name: Job 2
+    needs: job1
+    runs-on: ubuntu-latest
+    steps:
+      - name: Break it all2
+        run: cmdnotexist2
+
+  job3:
+    if: always()
+    name: Job 3
     runs-on: ubuntu-latest
     needs: job1
     steps:
       - name: Set overall status
-        run: echo ${{ needs.job1.result }}
+        run: echo ${{ needs.job2.result }}
+      - name: Set overall status
+        run: echo ${{ needs.job2.needs.job1.result }}
         
   
