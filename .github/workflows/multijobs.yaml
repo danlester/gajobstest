@@ -11,7 +11,7 @@ jobs:
       - name: Set everything up
         run: echo "Setting up"
       - name: Maybe break it all
-        run: exit 1
+        run: exit 0
 
   testsjob:
     name: Run Tests
@@ -37,13 +37,10 @@ jobs:
       - name: Set overall status Failure
         if: ${{ failure() || needs.testsjob.result != 'success' }}
         run: echo 'FAILURE for us'
+        
       - name: Set overall status Success
         if: ${{ success() && needs.testsjob.result == 'success' }}
-        run: |
-          echo "SUCCESS is ours"
-          echo "-${{ job.status }}-"
-          echo "-${{ needs.testsjob.result }}-"
-          echo "-${{ job.status == 'success' && needs.testsjob.result == 'success' }}-"
+        run: echo "SUCCESS is ours"
         
       - name: Notify via Endid
         uses: endid-app/endid-github-action@master
