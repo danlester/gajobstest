@@ -35,10 +35,10 @@ jobs:
         run: exit 0
         
       - name: Set overall status Failure
-        if: ${{ failure() || needs.job2.result != 'success' }}
+        if: ${{ failure() || needs.testsjob.result != 'success' }}
         run: echo 'FAILURE'
       - name: Set overall status Success
-        if: ${{ success() && needs.job2.result == 'success' }}
+        if: ${{ success() && needs.testsjob.result == 'success' }}
         run: echo 'SUCCESS'
         
       - name: Notify via Endid
