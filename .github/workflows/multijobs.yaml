@@ -43,6 +43,7 @@ jobs:
           echo "SUCCESS"
           echo "${{ job.status }}"
           echo "${{ job.needs.testsjob.result }}"
+          echo "${{ job.status == 'SUCCESS' && job.needs.testsjob.result == 'success' }}"
         
       - name: Notify via Endid
         uses: endid-app/endid-github-action@master
