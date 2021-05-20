@@ -45,6 +45,6 @@ jobs:
         uses: endid-app/endid-github-action@v2.0
         with:
           token: ${{ secrets.ENDID_TOKEN }}
-          status: ${{ job.success() && job.needs.testsjob.result == 'success' }}
+          status: ${{ job.status == 'success' && job.needs.testsjob.result == 'success' }}
         
   
