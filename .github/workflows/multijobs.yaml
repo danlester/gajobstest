@@ -42,7 +42,7 @@ jobs:
         run: echo 'SUCCESS'
         
       - name: Notify via Endid
-        uses: endid-app/endid-github-action@v2.0
+        uses: endid-app/endid-github-action@master
         with:
           token: ${{ secrets.ENDID_TOKEN }}
           status: ${{ job.status == 'success' && job.needs.testsjob.result == 'success' }}
