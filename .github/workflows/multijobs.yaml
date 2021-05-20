@@ -11,7 +11,7 @@ jobs:
       - name: Set everything up
         run: echo "Setting up"
       - name: Maybe break it all
-        run: exit 0
+        run: exit 1
 
   testsjob:
     name: Run Tests
