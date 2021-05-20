@@ -44,6 +44,7 @@ jobs:
         
       - name: Notify via Endid
         uses: endid-app/endid-github-action@master
+        if: always()
         with:
           token: ${{ secrets.ENDID_TOKEN }}
           status: ${{ job.status == 'success' && needs.testsjob.result == 'success' }}
