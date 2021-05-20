@@ -4,29 +4,36 @@ on:
   workflow_dispatch:
   
 jobs:
-  job1:
-    name: Job 1
+  startup:
+    name: Start Up
     runs-on: ubuntu-latest
     steps:
-      - name: Break it all
+      - name: Set everything up
+        run: echo "Setting up"
+      - name: Maybe break it all
         run: exit 0
 
-  job2:
-    name: Job 2
-    needs: job1
+  tests:
+    name: Run Tests
+    needs: startup
     runs-on: ubuntu-latest
     steps:
-      - name: Break it all2
+      - name: Run the test suite
+        run: echo "Running the tests"
+      - name: Maybe pretend a test has failed
         run: exit 0
 
-  job3:
+  teardown:
     if: always()
-    name: Job 3
+    name: Tear Down
     runs-on: ubuntu-latest
-    needs: job2
+    needs: tests
     steps:
-      - name: Maybe break this job
+      - name: Tear Down
+        run: echo "Tear Down Everything"
+      - name: Maybe break this job too
         run: exit 0
+        
       - name: Set overall status Failure
         if: ${{ failure() || needs.job2.result != 'success' }}
         run: echo 'FAILURE'
@@ -34,6 +41,10 @@ jobs:
         if: ${{ success() && needs.job2.result == 'success' }}
         run: echo 'SUCCESS'
         
-
+      - name: Notify via Endid
+        uses: endid-app/endid-github-action@v2.0
+        with:
+          token: ${{ secrets.ENDID_TOKEN }}
+          status: ${{ success() && needs.job2.result == 'success' }}
         
   
