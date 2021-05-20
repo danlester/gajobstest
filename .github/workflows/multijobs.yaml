@@ -39,7 +39,10 @@ jobs:
         run: echo 'FAILURE'
       - name: Set overall status Success
         if: ${{ success() && needs.testsjob.result == 'success' }}
-        run: echo 'SUCCESS'
+        run: |
+          echo "SUCCESS"
+          echo "${{ job.status }}"
+          echo "${{ job.needs.testsjob.result }}"
         
       - name: Notify via Endid
         uses: endid-app/endid-github-action@master
