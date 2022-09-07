@@ -42,7 +42,7 @@ jobs:
         if: ${{ success() && needs.testsjob.result == 'success' }}
         run: echo "SUCCESS is ours"
         
-      - name: Notify via Endid
+      - name: Notify via Slack
         uses: ideonate/slack-notify-github-action@master
         if: always()
         with:
