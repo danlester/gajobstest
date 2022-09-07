@@ -43,10 +43,10 @@ jobs:
         run: echo "SUCCESS is ours"
         
       - name: Notify via Endid
-        uses: endid-app/endid-github-action@master
+        uses: ideonate/slack-notify-github-action@master
         if: always()
         with:
-          token: ${{ secrets.ENDID_TOKEN }}
+          token: ${{ secrets.SLACK_WEBHOOK_TOKEN }}
           status: ${{ job.status == 'success' && needs.testsjob.result == 'success' }}
         
   
